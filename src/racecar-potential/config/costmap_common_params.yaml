@@ -1,0 +1,44 @@
+###     Common Costmap Parameters     ###
+
+  footprint: [[0.10, 0.05], [-0.10, 0.05], [-0.10, -0.05], [0.10, -0.05]]
+  
+  transform_tolerance: 1
+
+  plugins: 
+  - {name: lidar_layer,        type: "costmap_2d::VoxelLayer"}
+  - {name: inflation_layer,       type: "costmap_2d::InflationLayer"}
+
+  lidar_layer:
+
+    enabled: true
+    obstacle_range: 5.0
+    raytrace_range: 5.5
+    inflation_radius: 0.0
+    track_unknown_space: true
+    inf_is_valid: true
+    combination_method: 1
+
+    observation_sources: lidar
+
+    lidar: {sensor_frame: base_link, data_type: PointCloud2, topic: /lidar/output, marking: true, clearing: true}
+
+  # zed_layer:
+
+  #   enabled: false
+  #   obstacle_range: 5.0
+  #   raytrace_range: 5.5
+  #   inflation_radius: 0.0
+  #   track_unknown_space: true
+  #   combination_method: 1
+
+  #   observation_sources: zed
+
+  #   zed: {sensor_frame: base_link, data_type: PointCloud2, topic: /zed/output, marking: true, clearing: true}
+
+  inflation_layer:
+    enabled:              true
+    cost_scaling_factor:  10  # exponential rate at which the obstacle cost drops off (default: 10) ## 2.58
+    inflation_radius:     0.55  # max. distance from an obstacle at which costs are incurred for planning paths. 1.75
+
+
+  ###     Common Costmap Parameters     ###

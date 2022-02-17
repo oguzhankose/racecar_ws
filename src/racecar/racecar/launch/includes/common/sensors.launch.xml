@@ -1,0 +1,24 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+  <arg name="racecar_version"/>
+  <arg name="imu_model"/>
+  <arg name="run_camera"/>
+  <arg name="run_imu"/>
+  <arg name="sensors_config"
+       default="$(find racecar)/config/$(arg racecar_version)/sensors.yaml" />
+
+  <rosparam file="$(arg sensors_config)" command="load" />
+
+  <!-- laser -->
+  <include file="$(find rplidar_ros)/launch/rplidar.launch" ns="rplidar" />
+  
+  <!-- camera -->
+  <group if="$(eval arg('run_camera') == true)">
+    <include file="$(find zed_wrapper)/launch/zed.launch"/>
+  </group>
+
+  <!-- imu -->
+  <group if="$(eval arg('run_imu') == true)">
+    <include file="$(find racecar)/launch/includes/common/sensors/$(arg imu_model).launch.xml" />
+  </group>
+</launch>

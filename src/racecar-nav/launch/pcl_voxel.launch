@@ -1,0 +1,64 @@
+<launch>
+
+  <arg name="run_voxel" />
+
+  <group if="$(eval arg('run_voxel') == true)" >
+
+    <node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen"/>
+
+    <!-- Run a VoxelGrid filter to clean NaNs and downsample the data -->
+    <node pkg="nodelet" type="nodelet" name="zed_voxel_grid_z" args="load pcl/VoxelGrid pcl_manager" output="screen" >
+      <remap from="~input" to="/zed/zed_node/point_cloud/cloud_registered" />
+      <remap from="~output" to="/pcl/zed_voxel_grid_z/output" />
+      <rosparam>
+        filter_field_name: z
+        filter_limit_min: -0.1
+        filter_limit_max: 0.3
+        filter_limit_negative: False
+        leaf_size: 0.1
+      </rosparam>
+      
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="zed_voxel_grid_x" args="load pcl/VoxelGrid pcl_manager" output="screen" >
+      <remap from="~input" to="/pcl/zed_voxel_grid_z/output" />
+      <remap from="~output" to="/pcl/zed_voxel_grid/output" />
+      <rosparam>
+        filter_field_name: z
+        filter_limit_min: -0.1
+        filter_limit_max: 0.3
+        filter_limit_negative: False
+        leaf_size: 0.1
+      </rosparam>
+    
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="lidar_voxel_grid_x" args="load pcl/VoxelGrid pcl_manager" output="screen">
+      <remap from="~input" to="/lidar/pointcloud" />
+      <remap from="~output" to="/pcl/lidar_voxel_grid_x/output" />
+      <rosparam>
+        filter_field_name: x
+        filter_limit_min: -25
+        filter_limit_max: 25
+        filter_limit_negative: False
+        leaf_size: 0.1
+      </rosparam>
+      
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="lidar_voxel_grid_y" args="load pcl/VoxelGrid pcl_manager" output="screen" >
+      <remap from="~input" to="/pcl/lidar_voxel_grid_x/output" />
+      <remap from="~output" to="/pcl/lidar_voxel_grid/output" />
+      <rosparam>
+        filter_field_name: y
+        filter_limit_min: -25
+        filter_limit_max: 25
+        filter_limit_negative: False
+        leaf_size: 0.1
+      </rosparam>
+      
+      </node>
+
+  </group>
+
+</launch>

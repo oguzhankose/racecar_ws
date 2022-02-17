@@ -1,0 +1,15 @@
+TrajectoryPlannerROS:
+
+ acc_lim_x: 1.5
+ acc_lim_theta: 2.4
+
+ max_vel_x: 1.8
+ min_vel_x: 0.2
+ 
+ holonomic_robot: true
+
+ simple_attractor: true
+
+ heading_scoring: false
+
+

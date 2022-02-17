@@ -1,0 +1,44 @@
+<launch>
+
+   <!-- start odom publisher -->
+  <node name="odom_pub" pkg="racecar-nav" type="odom_pub.py" />
+
+  <!-- start goal_publisher -->
+  	<node name="goal_pub" pkg="racecar-nav" type="goal_pub.py" />
+
+  	<!-- start twist to ackermann conversion node-->
+  	<node name="cmd_vel2ackermann_drive" pkg="racecar-nav" type="cmd_vel2ackermann_drive.py" />
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" launch-prefix=" bash -c 'sleep 1; $0 $@' ">
+
+    <!--param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS"/-->
+
+    <rosparam file="$(find racecar-nav)/config/move_base/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+    <rosparam file="$(find racecar-nav)/config/move_base/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find racecar-nav)/config/move_base/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find racecar-nav)/config/move_base/global_costmap_params.yaml" command="load" /> 
+    <rosparam file="$(find racecar-nav)/config/move_base/local_planner_params.yaml" command="load" />
+
+    <param name="recovery_behavior_enabled" value="false"/> 
+    <param name="clearing_rotation_allowed" value="false"/>
+
+    <!--rosparam param="recovery_behaviors"> [ { name: "rotate_recovery", type: "rotate_recovery/RotateRecovery" } ] </rosparam-->
+
+    <param name="conservative_reset_dist" value="0.1"/>
+
+    <param name="controller_frequency" value="10.0"/>
+    <param name="planner_frequency" value="5.0"/>
+
+    <param name="planner_patience" value="1.5"/>
+
+    <param name="make_plan_clear_costmap" value="false"/>
+    <param name="make_plan_add_unreachable_goal" value="false"/>
+    
+  </node>
+
+
+
+	<!--  **************** Visualisation ****************  -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find racecar-nav)/config/lane_teb_rviz.rviz"/>
+
+</launch>

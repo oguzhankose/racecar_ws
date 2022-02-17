@@ -1,0 +1,38 @@
+<launch>
+
+  	<!-- start goal_publisher -->
+  	<node name="goal_pub" pkg="racecar-nav" type="goal_pub.py" />
+
+  	<!-- start twist to ackermann conversion node-->
+  	<node name="cmd_vel2ackermann_drive" pkg="racecar-nav" type="cmd_vel2ackermann_drive.py" />
+
+	<!--node name="ros_main" pkg="lane_detection" type="ros_main.py" /-->
+    
+
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+		<rosparam file="$(find racecar-nav)/config/global+teb_planner/costmap_common_params.yaml" command="load" ns="global_costmap" />
+  	 	<rosparam file="$(find racecar-nav)/config/global+teb_planner/costmap_common_params.yaml" command="load" ns="local_costmap" />
+  		<rosparam file="$(find racecar-nav)/config/global+teb_planner/local_costmap_params.yaml" command="load" />
+  		<rosparam file="$(find racecar-nav)/config/global+teb_planner/global_costmap_params.yaml" command="load" />
+
+  		<rosparam file="$(find racecar-nav)/config/global+teb_planner/local_planner.yaml" command="load" />
+
+		<param name="base_global_planner" value="global_planner/GlobalPlanner" />
+		<param name="planner_frequency" value="8.0" />
+		<param name="planner_patience" value="60.0" />
+
+		<!--param name="base_local_planner" value="eband_local_planner/EBandPlannerROS" /-->
+		<param name="controller_frequency" value="15.0" />
+		<param name="controller_patience" value="5.0" />
+
+        <param name="clearing_rotation_allowed" value="false" /> <!-- Our carlike robot is not able to rotate in place -->
+
+		<!-- LOAD COSTMAP_CONVERTER PARAMETERS HERE -->
+    	<!--rosparam file="$(find racecar-nav)/config/global+teb_planner/costmap_converter_params.yaml" command="load" /-->
+	
+	</node>
+
+	<!--  **************** Visualisation ****************  -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find racecar-nav)/config/lane_teb_rviz.rviz"/>
+
+</launch>

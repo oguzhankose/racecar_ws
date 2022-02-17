@@ -1,0 +1,8 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+  
+  <node pkg="sparkfun_9dof_razor_imu_m0" type="driver_node" name="imu_node" >
+      <param name="port" command="bash -c 'printf '$'(ls /dev/serial/by-id/usb-SparkFun*)'" />
+  </node>
+    
+</launch>

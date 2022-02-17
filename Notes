@@ -1,0 +1,90 @@
+
+Set max vel and acc s
+
+Set max rot vel and rot acc
+
+Carrot planner ? (Always finds a goal) (As global planner)
+
+Global plannner
+  - Neutral Cost
+  - Lethal Cost
+  - Cost Factor
+
+Two circle footprint
+
+Cost scaling factor for decreasing the slope of infilation
+For going from center of obstacles
+
+Decrease cost scaling
+
+Low costmap resolution may cause obstacle layer overlap
+
+Costmap resolution due to laser resolution
+
+Or unknown dots will appear
+
+Can be 2 times of lidar resolution
+
+Create map frame
+
+Tf odom frame wrt imu data and map frame
+
+Obstacle layer has 2 dimensions
+Voxel layer has 3 dimensions
+
+Voxel == 3D volumetric cube
+
+KinectFusion: Real-time 3D Reconstruction and Interaction Using a Moving
+Depth Camera
+
+• Real-time 3D Reconstruction at Scale using Voxel Hashing
+
+AMCL without location ?
+
+AMCL parameters for RPLidar
+
+Increasing lidar frequency
+
+How to detect that robot is stuck?
+
+Basic state machine that will recover robot from stuck situation
+
+At least dont blow up the planning
+
+Very very very usefull source for robot navigation in ros
+
+Verfy speed profile
+
+http://wiki.ros.org/depthimage_to_laserscan
+
+Sensörleri fuse etme
+
+Laser scan e çevir ikisini de
+
+Lidar verisi varsa o şekil bırak
+
+Veri olmayan açıları zed den alarak ekle
+
+Voxelle çözünürlüğü düşür
+
+Yolla gitsin
+
+Zed i lidar frame ine tf le
+
+Veri olan yerde başka ne yapılabilir ?
+
+Add heading as reference
+
+So you can check the performance
+
+http://markmaz.com/racecar_fall19/
+
+
+
+
+
+
+
+
+
+

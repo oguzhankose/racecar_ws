@@ -1,0 +1,2 @@
+
+-DCATKIN_DEVEL_PREFIX=/home/nvidia/oguz-marc/src/racecar-potential-calc/devel -DCMAKE_INSTALL_PREFIX=/home/nvidia/oguz-marc/src/racecar-potential-calc/install -G Unix Makefiles
